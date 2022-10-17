@@ -16,8 +16,13 @@
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
     </properties>
 
-    <dependencies>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.xcxgulimall-third-party</groupId>
+            <artifactId>gulimall-third-party</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.xcx.gulimall</groupId>
             <artifactId>gulimall-common</artifactId>
@@ -42,18 +47,6 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-core</artifactId>
-            <version>3.3.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.13</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -93,7 +86,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.xcx.gulimall.product.GulimallProductApplication</mainClass>
+                    <mainClass>com.xcx.gulimall.ware.GulimallWareApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -44,13 +44,12 @@ public class CategoryController {
      * 信息
      */
     @RequestMapping("/info/{catId}")
-  //  @RequiresPermissions("product:category:info")
+    // @RequiresPermissions("product:category:info")
     public R info(@PathVariable("catId") Long catId){
-		CategoryEntity category = categoryService.getById(catId);
+        CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return R.ok().put("data", category);
     }
-
     /**
      * 保存
      */
@@ -79,8 +78,16 @@ public class CategoryController {
     @RequestMapping("/delete")
   //  @RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
+        categoryService.removeMenusByIds(Arrays.asList(catIds));
 
+        return R.ok();
+    }
+
+    @RequestMapping("/update/sort")
+    // @RequiresPermissions("product:category:update")
+    public R update(@RequestBody CategoryEntity[] category){
+
+        categoryService.updateBatchById(Arrays.asList(category));
         return R.ok();
     }
 
