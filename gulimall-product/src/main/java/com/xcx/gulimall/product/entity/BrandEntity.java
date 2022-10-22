@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.NonNull;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * Ʒ��
@@ -27,6 +30,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * Ʒ����
 	 */
+	@NotBlank(message = "品牌名不能为空")
 	private String name;
 	/**
 	 * Ʒ��logo��ַ

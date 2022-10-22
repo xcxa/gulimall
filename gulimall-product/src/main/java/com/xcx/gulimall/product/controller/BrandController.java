@@ -15,6 +15,8 @@ import com.xcx.gulimall.product.entity.BrandEntity;
 import com.xcx.gulimall.product.service.BrandService;
 import com.xcx.common.utils.PageUtils;
 
+import javax.validation.Valid;
+
 
 /**
  * Ʒ��
@@ -57,7 +59,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
  //   @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Valid @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();
