@@ -1,10 +1,11 @@
 package com.xcx.gulimall.product.service.impl;
 
+import com.xcx.gulimall.product.dao.CategoryBrandRelationDao;
+import com.xcx.gulimall.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,6 +23,9 @@ import com.xcx.gulimall.product.service.CategoryService;
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
+
+    @Autowired
+    CategoryBrandRelationDao CategoryBrandRelationDao;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryEntity> page = this.page(
@@ -55,7 +59,35 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         baseMapper.deleteBatchIds(asList);
     }
 
-    private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all){
+
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> path = new ArrayList<>();
+        List<Long> parentPath = findParentPath(catelogId, path);
+        Collections.reverse(parentPath);
+        return  parentPath.toArray(new Long[path.size()]);
+    }
+
+    @Override
+    public void updateDetail(CategoryEntity category) {
+        this.updateById(category);
+        CategoryBrandRelationDao.updateCategory(category.getCatId(),category.getName());
+
+    }
+
+    public List<Long> findParentPath(Long catelogId, List<Long> path) {
+        CategoryEntity byId = this.getById(catelogId);
+        if (byId.getParentCid()!=0){
+            path.add(catelogId);
+
+            findParentPath(byId.getParentCid(), path);
+        }
+        return path;
+
+    }
+
+        private List<CategoryEntity> getChildrens(CategoryEntity root, List<CategoryEntity> all){
         List<CategoryEntity> children = all.stream().filter(s ->
                 s.getParentCid() == root.getCatId()
             ).map(menu ->{

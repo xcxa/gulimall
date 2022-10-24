@@ -27,7 +27,7 @@ import com.xcx.common.utils.PageUtils;
 @RequestMapping("product/attrattrgrouprelation")
 public class AttrAttrgroupRelationController {
     @Autowired
-    private AttrAttrgroupRelationService attrAttrgroupRelationService;
+    AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     /**
      * 列表
